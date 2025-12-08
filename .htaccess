@@ -1,0 +1,13 @@
+Header always set X-XSS-Protection "1; mode=block"
+Header always set X-Content-Type-Options: nosniff
+Header always append X-Frame-Options SAMEORIGIN
+Header set Referrer-Policy: strict-origin-when-cross-origin
+Header always set Strict-Transport-Security "max-age=31536000;includeSubDomains;preload"
+
+
+RewriteEngine on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule (.*) https://frdl.ch/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www.frdl.ch$ [NC]
+RewriteRule ^(.*)$ https://frdl.ch/$1 [R=301,L]
